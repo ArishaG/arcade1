@@ -38,7 +38,7 @@ function guessingGame() {
 }
 
 // Consult the Oracle as a Function Expression
-const consultTheOracle = function() {
+const consultOracle = function() {
     const answers = [
         "Yes", 
         "No", 
@@ -50,7 +50,7 @@ const consultTheOracle = function() {
         "Absolutely"
     ];
 
-    const questionInput = prompt("Ask the magic eight ball a yes/no question:");
+    const questionInput = prompt("The Oracle awaits your question:");
     if (questionInput.trim() === '') {
         alert('Please enter a valid question!');
         return;
@@ -61,15 +61,15 @@ const consultTheOracle = function() {
 
     let askAgainResponse = prompt("Would you like to ask another question? (y/n)").toLowerCase();
     if (askAgainResponse === 'y') {
-        consultTheOracle();
+        consultOracle();
     } else {
         alert("Thanks for playing! Goodbye!");
     }
 };
 
 // Bear Ninja Hunter as an Arrow Function
-const bearNinjaHunter = () => {
-    let playerName = prompt('Welcome to Bear Ninja Hunter! Please enter your name:');
+const bnh = () => {
+    let playerName = prompt('Enter your name to play Bear, Ninja, Hunter:');
     alert(`Hello, ${playerName}! Get ready to play Bear Ninja Hunter!`);
     
     let playerChoice = prompt('Choose your character: Bear, Ninja, or Hunter');
@@ -100,7 +100,7 @@ const bearNinjaHunter = () => {
 
     let playAgainResponse = prompt(`${playerName}, Would you like to play again? (y/n)`).toLowerCase();
     if (playAgainResponse === 'y') {
-        bearNinjaHunter();
+        bnh();
     } else {
         alert("Thanks for playing! Goodbye!");
     }
