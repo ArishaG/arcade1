@@ -1,60 +1,93 @@
-let playerName;
+// Guessing Game
+function playGuessingGame() {
+    let playAgain = true;
 
-// Function 1: Declaration
-function gameOne() {
-  playerName ||= prompt("Welcome to Game 1! What's your name?");
-  if (!playerName) return alert("Please enter a valid name!");
+    while (playAgain) {
+        const randomNumber = Math.floor(Math.random() * 10) + 1;
+        let attempts = 0;
+        let correctGuess = false;
 
-  let playAgain;
-  do {
-    let result = Math.random() > 0.5 ? "Win!" : "Lose!";
-    alert(`${playerName}, you ${result} in Game 1.`);
-    playAgain = prompt(`${playerName}, would you like to keep playing this game? y/n`).toLowerCase() === 'y';
-  } while (playAgain);
+        while (!correctGuess) {
+            const guess = parseInt(prompt("Guess a number between 1 and 10:"));
+            if (isNaN(guess)) {
+                alert("Please enter a valid number.");
+                continue;
+            }
 
-  handleSessionEnd();
+            attempts++;
+            if (guess > randomNumber) {
+                alert("Guess was too high, guess again.");
+            } else if (guess < randomNumber) {
+                alert("Guess was too low, guess again.");
+            } else {
+                alert(`You guessed it in ${attempts} guesses!`);
+                correctGuess = true;
+            }
+        }
+
+        const playAgainResponse = prompt("Would you like to play again? (y/n)").toLowerCase();
+        playAgain = playAgainResponse === 'y';
+    }
+
+    alert("Thanks for playing! Have a great day!");
 }
 
-// Function 2: Expression
-const gameTwo = function () {
-  playerName ||= prompt("Welcome to Game 2! What's your name?");
-  if (!playerName) return alert("Please enter a valid name!");
+// Oracle Game
+function consultOracle() {
+    const answers = [
+        "Yes", 
+        "No", 
+        "Definitely", 
+        "Ask again later", 
+        "Not likely", 
+        "Certainly", 
+        "Impossible", 
+        "Absolutely"
+    ];
 
-  let playAgain;
-  do {
-    let number = Math.floor(Math.random() * 10) + 1;
-    alert(`${playerName}, your random number is ${number} in Game 2.`);
-    playAgain = prompt(`${playerName}, would you like to keep playing this game? y/n`).toLowerCase() === 'y';
-  } while (playAgain);
+    while (true) {
+        const question = prompt("Ask the oracle a yes/no question (or type 'stop' to exit):");
+        if (!question || question.toLowerCase() === 'stop') {
+            alert("Thanks for consulting the Oracle! Goodbye!");
+            break;
+        }
 
-  handleSessionEnd();
-};
-
-// Function 3: Arrow
-const gameThree = () => {
-  playerName ||= prompt("Welcome to Game 3! What's your name?");
-  if (!playerName) return alert("Please enter a valid name!");
-
-  let playAgain;
-  do {
-    let diceRoll = Math.ceil(Math.random() * 6);
-    alert(`${playerName}, you rolled a ${diceRoll} in Game 3.`);
-    playAgain = prompt(`${playerName}, would you like to keep playing this game? y/n`).toLowerCase() === 'y';
-  } while (playAgain);
-
-  handleSessionEnd();
-};
-
-// Handle Session End
-function handleSessionEnd() {
-  const anotherGame = prompt(`${playerName}, would you like to pick another game to play? y/n`).toLowerCase();
-  if (anotherGame === 'n') {
-    document.getElementById('farewell-message').style.display = 'block';
-  }
+        const randomAnswer = answers[Math.floor(Math.random() * answers.length)];
+        alert(`The Oracle says: "${randomAnswer}"`);
+    }
 }
 
-// Reload Page
-function reloadPage() {
-  location.reload();
-}
+// Bear Ninja Hunter Game
+function playBearNinjaHunter() {
+    const choices = ["Bear", "Ninja", "Hunter"];
+    const computerChoice = choices[Math.floor(Math.random() * choices.length)];
 
+    const playerName = prompt("Welcome to Bear Ninja Hunter! Please enter your name:");
+    if (!playerName) {
+        alert("No name entered. Exiting game.");
+        return;
+    }
+
+    const playerChoice = prompt("Choose your character: Bear, Ninja, or Hunter").trim();
+    if (!choices.includes(playerChoice)) {
+        alert("Invalid choice! Please choose Bear, Ninja, or Hunter.");
+        return;
+    }
+
+    let resultMessage = `${playerName}, you chose ${playerChoice}. The computer chose ${computerChoice}.`;
+    let winnerMessage;
+
+    if (playerChoice === computerChoice) {
+        winnerMessage = "It's a Tie!";
+    } else if (
+        (playerChoice === "Bear" && computerChoice === "Ninja") ||
+        (playerChoice === "Ninja" && computerChoice === "Hunter") ||
+        (playerChoice === "Hunter" && computerChoice === "Bear")
+    ) {
+        winnerMessage = `${playerName} Wins!`;
+    } else {
+        winnerMessage = "Computer Wins!";
+    }
+
+    alert(`${resultMessage}\n${winnerMessage}`);
+}
