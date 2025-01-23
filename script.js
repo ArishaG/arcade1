@@ -1,3 +1,13 @@
+let playerName = '';
+
+function startGame(gameFunction) {
+    if (!playerName) {
+        playerName = prompt('Welcome to the Game Arcade! Please enter your name:');
+        alert(`Hello, ${playerName}! Get ready to play!`);
+    }
+    gameFunction();
+}
+
 // Guessing Game as a Function Declaration
 function guessingGame() {
     let playAgain = true;
@@ -30,11 +40,15 @@ function guessingGame() {
             }
         }
 
-        let playAgainResponse = prompt("Would you like to play again? (y/n)").toLowerCase();
-        playAgain = playAgainResponse === 'y';
+        let playAgainResponse = prompt(`${playerName}, Would you like to keep playing this game? y/n`).toLowerCase();
+        if (playAgainResponse !== 'y') {
+            playAgain = false;
+            let pickAnotherGameResponse = prompt(`${playerName}, Would you like to pick another game to play? y/n`).toLowerCase();
+            if (pickAnotherGameResponse !== 'y') {
+                document.getElementById('farewellMessage').style.display = 'block';
+            }
+        }
     }
-
-    alert("Thanks for playing! Have a great day!");
 }
 
 // Consult the Oracle as a Function Expression
@@ -50,58 +64,67 @@ const consultOracle = function() {
         "Absolutely"
     ];
 
-    const questionInput = prompt("The Oracle awaits your question:");
-    if (questionInput.trim() === '') {
-        alert('Please enter a valid question!');
-        return;
-    }
+    let playAgain = true;
 
-    const randomAnswer = answers[Math.floor(Math.random() * answers.length)];
-    alert(`The Oracle says: ${randomAnswer}`);
+    while (playAgain) {
+        const questionInput = prompt("The Oracle awaits your question:");
+        if (questionInput.trim() === '') {
+            alert('Please enter a valid question!');
+            continue;
+        }
 
-    let askAgainResponse = prompt("Would you like to ask another question? (y/n)").toLowerCase();
-    if (askAgainResponse === 'y') {
-        consultOracle();
-    } else {
-        alert("Thanks for playing! Goodbye!");
+        const randomAnswer = answers[Math.floor(Math.random() * answers.length)];
+        alert(`The Oracle says: ${randomAnswer}`);
+
+        let playAgainResponse = prompt(`${playerName}, Would you like to keep playing this game? y/n`).toLowerCase();
+        if (playAgainResponse !== 'y') {
+            playAgain = false;
+            let pickAnotherGameResponse = prompt(`${playerName}, Would you like to pick another game to play? y/n`).toLowerCase();
+            if (pickAnotherGameResponse !== 'y') {
+                document.getElementById('farewellMessage').style.display = 'block';
+            }
+        }
     }
 };
 
 // Bear Ninja Hunter as an Arrow Function
 const bnh = () => {
-    let playerName = prompt('Enter your name to play Bear, Ninja, Hunter:');
-    alert(`Hello, ${playerName}! Get ready to play Bear Ninja Hunter!`);
-    
-    let playerChoice = prompt('Choose your character: Bear, Ninja, or Hunter');
-    let computerChoice = 'Bear';
+    let playAgain = true;
 
-    let resultMessage = '';
-    let winnerMessage = '';
+    while (playAgain) {
+        let playerChoice = prompt('Choose your character: Bear, Ninja, or Hunter');
+        let computerChoice = 'Bear';
 
-    switch (playerChoice) {
-        case 'Bear':
-            resultMessage = `${playerName}, you chose Bear. The computer chose Bear.`;
-            winnerMessage = "It's a Tie!";
-            break;
-        case 'Ninja':
-            resultMessage = `${playerName}, you chose Ninja. The computer chose Bear.`;
-            winnerMessage = `${playerName} Wins!`;
-            break;
-        case 'Hunter':
-            resultMessage = `${playerName}, you chose Hunter. The computer chose Bear.`;
-            winnerMessage = "Computer Wins!";
-            break;
-        default:
-            resultMessage = "Invalid choice! Please choose Bear, Ninja, or Hunter.";
-            winnerMessage = "No winner this time.";
-    }
+        let resultMessage = '';
+        let winnerMessage = '';
 
-    alert(`${resultMessage}\n${winnerMessage}`);
+        switch (playerChoice) {
+            case 'Bear':
+                resultMessage = `${playerName}, you chose Bear. The computer chose Bear.`;
+                winnerMessage = "It's a Tie!";
+                break;
+            case 'Ninja':
+                resultMessage = `${playerName}, you chose Ninja. The computer chose Bear.`;
+                winnerMessage = `${playerName} Wins!`;
+                break;
+            case 'Hunter':
+                resultMessage = `${playerName}, you chose Hunter. The computer chose Bear.`;
+                winnerMessage = "Computer Wins!";
+                break;
+            default:
+                resultMessage = "Invalid choice! Please choose Bear, Ninja, or Hunter.";
+                winnerMessage = "No winner this time.";
+        }
 
-    let playAgainResponse = prompt(`${playerName}, Would you like to play again? (y/n)`).toLowerCase();
-    if (playAgainResponse === 'y') {
-        bnh();
-    } else {
-        alert("Thanks for playing! Goodbye!");
+        alert(`${resultMessage}\n${winnerMessage}`);
+
+        let playAgainResponse = prompt(`${playerName}, Would you like to keep playing this game? y/n`).toLowerCase();
+        if (playAgainResponse !== 'y') {
+            playAgain = false;
+            let pickAnotherGameResponse = prompt(`${playerName}, Would you like to pick another game to play? y/n`).toLowerCase();
+            if (pickAnotherGameResponse !== 'y') {
+                document.getElementById('farewellMessage').style.display = 'block';
+            }
+        }
     }
 };
