@@ -3,7 +3,12 @@ let playerName = '';
 function startGame(gameFunction) {
     if (!playerName) {
         playerName = prompt('Welcome to the Game Arcade! Please enter your name:');
-        alert(`Hello, ${playerName}! Get ready to play!`);
+        if (playerName) {
+            alert(`Hello, ${playerName}! Get ready to play!`);
+        } else {
+            alert("Please enter a valid name.");
+            return;
+        }
     }
     gameFunction();
 }
